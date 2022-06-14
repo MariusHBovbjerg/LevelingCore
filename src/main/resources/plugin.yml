@@ -1,0 +1,8 @@
+name: CoreFunctionality
+version: '${project.version}'
+main: com.smellyalater.corefunctionality.CoreFunctionality
+api-version: 1.18
+authors: [ Smellyalater ]
+description: Core functionality for the server 8)
+dependencies:
+  - NBTAPI
