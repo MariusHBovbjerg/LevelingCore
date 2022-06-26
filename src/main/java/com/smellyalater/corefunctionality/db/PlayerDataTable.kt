@@ -9,4 +9,5 @@ object PlayerTable : UUIDTable(name = "players") {
     var strength = integer("strength")
     var dexterity = integer("dexterity")
     var endurance = integer("endurance")
+    var skillPoints = integer("skill_points")
 }

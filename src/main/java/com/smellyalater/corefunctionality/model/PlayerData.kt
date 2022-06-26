@@ -9,15 +9,17 @@ class PlayerData {
     var strength = 0
     var dexterity = 0
     var endurance = 0
+    var skillPoints = 0
     constructor(id: UUID) {
-        this.id = id;
+        this.id = id
     }
-    constructor(id: UUID, experience: Double, level: Int, strength: Int, dexterity: Int, endurance: Int) {
+    constructor(id: UUID, experience: Double, level: Int, strength: Int, dexterity: Int, endurance: Int, skillPoints: Int) {
         this.id = id
         this.experience = experience
         this.level = level
         this.strength = strength
         this.dexterity = dexterity
         this.endurance = endurance
+        this.skillPoints = skillPoints
     }
 }

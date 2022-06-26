@@ -4,6 +4,7 @@ import com.smellyalater.corefunctionality.db.PlayerTable.dexterity
 import com.smellyalater.corefunctionality.db.PlayerTable.endurance
 import com.smellyalater.corefunctionality.db.PlayerTable.experience
 import com.smellyalater.corefunctionality.db.PlayerTable.level
+import com.smellyalater.corefunctionality.db.PlayerTable.skillPoints
 import com.smellyalater.corefunctionality.db.PlayerTable.strength
 import com.smellyalater.corefunctionality.db.PlayerTable.uuid
 import com.smellyalater.corefunctionality.model.PlayerData
@@ -19,19 +20,33 @@ class PlayerDataRepository : IPlayerDataRepository{
             it[strength] = player.strength
             it[dexterity] = player.dexterity
             it[endurance] = player.endurance
+            it[skillPoints] = player.skillPoints
+        }
+        return PlayerData(newPlayerId.value)
+    }
+
+    override fun createBaseUser(playerId: UUID): PlayerData {
+        val newPlayerId = PlayerTable.insertAndGetId {
+            it[uuid] = playerId
+            it[experience] = 0.0
+            it[level] = 0
+            it[strength] = 0
+            it[dexterity] = 0
+            it[endurance] = 0
+            it[skillPoints] = 0
         }
         return PlayerData(newPlayerId.value)
     }
 
     override fun selectAll(): List<PlayerData> {
         return PlayerTable.selectAll().map {
-            PlayerData(it[uuid], it[experience], it[level], it[strength], it[dexterity], it[endurance])
+            PlayerData(it[uuid], it[experience], it[level], it[strength], it[dexterity], it[endurance], it[skillPoints])
         }
     }
 
     override fun selectById(id: UUID): PlayerData? {
         return PlayerTable.select { uuid eq id }.map {
-            PlayerData(it[uuid], it[experience], it[level], it[strength], it[dexterity], it[endurance])
+            PlayerData(it[uuid], it[experience], it[level], it[strength], it[dexterity], it[endurance], it[skillPoints])
         }.firstOrNull()
     }
 
@@ -47,6 +62,7 @@ class PlayerDataRepository : IPlayerDataRepository{
             it[strength] = playerData.strength
             it[dexterity] = playerData.dexterity
             it[endurance] = playerData.endurance
+            it[skillPoints] = playerData.skillPoints
         }
     }
 }
