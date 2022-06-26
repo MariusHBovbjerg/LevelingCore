@@ -17,3 +17,6 @@ commands:
   giveSkillPoints:
     permission: corefunctionality.giveSkillPoints
     description: giveSkillPoints
+  resetPlayer:
+    permission: corefunctionality.resetPlayer
+    description: resetPlayer

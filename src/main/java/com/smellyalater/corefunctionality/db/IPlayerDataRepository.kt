@@ -10,4 +10,6 @@ interface IPlayerDataRepository {
     fun selectById(id: UUID): PlayerData?
     fun delete(id: UUID)
     fun update(playerData: PlayerData)
+
+    fun getPlayerDataOrEnsureCreateBaseUser(playerId: UUID): PlayerData
 }

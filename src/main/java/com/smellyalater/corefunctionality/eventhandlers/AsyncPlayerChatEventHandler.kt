@@ -8,7 +8,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.inventory.ItemStack
 
-class AsyncPlayerChatEventHandler() : Listener {
+class AsyncPlayerChatEventHandler : Listener {
 
     @EventHandler
     fun onPlayerChat(e: AsyncPlayerChatEvent){

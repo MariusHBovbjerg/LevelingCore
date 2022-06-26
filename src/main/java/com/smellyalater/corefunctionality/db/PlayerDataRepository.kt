@@ -9,6 +9,7 @@ import com.smellyalater.corefunctionality.db.PlayerTable.strength
 import com.smellyalater.corefunctionality.db.PlayerTable.uuid
 import com.smellyalater.corefunctionality.model.PlayerData
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 
 class PlayerDataRepository : IPlayerDataRepository{
@@ -63,6 +64,16 @@ class PlayerDataRepository : IPlayerDataRepository{
             it[dexterity] = playerData.dexterity
             it[endurance] = playerData.endurance
             it[skillPoints] = playerData.skillPoints
+        }
+    }
+
+    override fun getPlayerDataOrEnsureCreateBaseUser(playerId: UUID): PlayerData {
+        return transaction { // transaction is needed to ensure that the player is created if it doesn't exist
+            var player = selectById(playerId)
+            if (player == null) {
+                player = createBaseUser(playerId)
+            }
+            player
         }
     }
 }

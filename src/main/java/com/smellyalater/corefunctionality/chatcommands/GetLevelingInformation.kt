@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
-import org.jetbrains.exposed.sql.transactions.transaction
 
 class GetLevelingInformation(private val plugin: JavaPlugin, private val playerDataRepository: PlayerDataRepository) :
     Listener {
@@ -27,16 +26,10 @@ class GetLevelingInformation(private val plugin: JavaPlugin, private val playerD
 
     private fun getExpInformation(player: Player, repo: PlayerDataRepository){
 
-        transaction {
-            var playerData = repo.selectById(player.uniqueId)
+        val playerData = repo.getPlayerDataOrEnsureCreateBaseUser(player.uniqueId)
 
-            if (playerData == null) {
-                playerData = repo.createBaseUser(player.uniqueId)
-            }
+        val reqExp = ExperienceFunctions.calculateRequiredExperience(playerData.level)
 
-            val reqExp = ExperienceFunctions.calculateRequiredExperience(playerData.level)
-
-            ExperienceFunctions.printPlayerData(player, playerData, reqExp)
-        }
+        ExperienceFunctions.printPlayerData(player, playerData, reqExp)
     }
 }

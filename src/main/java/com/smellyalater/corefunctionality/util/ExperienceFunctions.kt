@@ -14,6 +14,11 @@ class ExperienceFunctions {
             player.exp = progress
         }
 
+        fun resetProgressBar(player: Player){
+            player.level = 0
+            player.exp = 0.0F
+        }
+
         fun calculateRequiredExperience(level: Int): Double {
             return ceil(calculateMobReward(level) * (level/0.1) + 25.0)
         }

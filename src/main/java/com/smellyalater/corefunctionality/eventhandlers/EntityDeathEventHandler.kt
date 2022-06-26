@@ -1,8 +1,6 @@
 package com.smellyalater.corefunctionality.eventhandlers
 
 import com.smellyalater.corefunctionality.db.PlayerDataRepository
-import com.smellyalater.corefunctionality.db.PlayerTable
-import com.smellyalater.corefunctionality.model.PlayerData
 import com.smellyalater.corefunctionality.util.ExperienceFunctions
 import com.smellyalater.corefunctionality.util.ExperienceFunctions.Companion.calculateMobReward
 import com.smellyalater.corefunctionality.util.ExperienceFunctions.Companion.calculateRequiredExperience
@@ -12,7 +10,6 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.update
 import kotlin.math.ceil
 
 class EntityDeathEventHandler(private var playerDataRepository: PlayerDataRepository) : Listener{
@@ -40,31 +37,23 @@ class EntityDeathEventHandler(private var playerDataRepository: PlayerDataReposi
     }
 
     private fun gainExperienceAndEvaluateLevelUp(player: Player, amount: Int) {
-        transaction {
-            var playerData: PlayerData? = playerDataRepository.selectById(player.uniqueId)
 
-            if(playerData == null){
-                playerData = playerDataRepository.createBaseUser(player.uniqueId)
-            }
+        val playerData = playerDataRepository.getPlayerDataOrEnsureCreateBaseUser(player.uniqueId)
 
-            val reqExp = calculateRequiredExperience(playerData.level)
+        val reqExp = calculateRequiredExperience(playerData.level)
 
-            if(playerData.experience + amount >= reqExp){
-                playerData.level++
-                playerData.skillPoints++
-                playerData.experience = playerData.experience + amount - reqExp
-            }else{
-                playerData.experience += amount
-            }
-
-            ExperienceFunctions.printPlayerData(player, playerData, reqExp)
-
-            setProgressBar(player, playerData.level, playerData.experience, calculateRequiredExperience(playerData.level))
-
-            PlayerTable.update({ PlayerTable.uuid eq playerData.id }) {
-                it[experience] = playerData.experience
-                it[level] = playerData.level
-            }
+        if(playerData.experience + amount >= reqExp){
+            playerData.level++
+            playerData.skillPoints++
+            playerData.experience = playerData.experience + amount - reqExp
+        }else{
+            playerData.experience += amount
         }
+
+        ExperienceFunctions.printPlayerData(player, playerData, reqExp)
+
+        setProgressBar(player, playerData.level, playerData.experience, calculateRequiredExperience(playerData.level))
+
+        transaction{ playerDataRepository.update(playerData) }
     }
 }

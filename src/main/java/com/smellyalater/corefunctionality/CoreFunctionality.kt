@@ -28,7 +28,7 @@ class CoreFunctionality : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(PlayerExpChangeEventHandler(), this)
         server.pluginManager.registerEvents(AsyncPlayerChatEventHandler(), this)
         server.pluginManager.registerEvents(EntityDeathEventHandler(playerDataRepository), this)
-        server.pluginManager.registerEvents(EntityDamageByEntityEventHandler(), this)
+        server.pluginManager.registerEvents(EntityDamageByEntityEventHandler(playerDataRepository), this)
         server.pluginManager.registerEvents(EntitySpawnEventHandler(), this)
         server.pluginManager.registerEvents(GetLevelingInformation(this, playerDataRepository), this)
         server.pluginManager.registerEvents(OpenSkillMenu(this, playerDataRepository), this)
