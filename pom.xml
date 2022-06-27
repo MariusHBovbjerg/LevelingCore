@@ -150,6 +150,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.spigotmc1.18.2</groupId>
+            <artifactId>craftbukkit1.18.2</artifactId>
+            <version>1.18.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/spigot-1.18.2.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.18.2-R0.1-SNAPSHOT</version>
