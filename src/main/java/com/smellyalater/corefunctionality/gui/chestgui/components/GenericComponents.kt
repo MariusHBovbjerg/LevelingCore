@@ -1,8 +1,10 @@
-package com.smellyalater.corefunctionality.gui
+package com.smellyalater.corefunctionality.gui.chestgui.components
 
+import com.smellyalater.corefunctionality.gui.chestgui.GUI
+import com.smellyalater.corefunctionality.gui.chestgui.item
 import org.bukkit.Material
 
-class Components {
+class GenericComponents {
 
     companion object{
 

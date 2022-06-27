@@ -2,7 +2,6 @@ package com.smellyalater.corefunctionality
 
 import com.smellyalater.corefunctionality.chatcommands.GetLevelingInformation
 import com.smellyalater.corefunctionality.chatcommands.LevelCommands
-import com.smellyalater.corefunctionality.chatcommands.OpenSkillMenu
 import com.smellyalater.corefunctionality.db.PlayerDataRepository
 import com.smellyalater.corefunctionality.db.PlayerTable
 import com.smellyalater.corefunctionality.eventhandlers.*
@@ -31,8 +30,9 @@ class CoreFunctionality : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(EntityDamageByEntityEventHandler(playerDataRepository), this)
         server.pluginManager.registerEvents(EntitySpawnEventHandler(), this)
         server.pluginManager.registerEvents(GetLevelingInformation(this, playerDataRepository), this)
-        server.pluginManager.registerEvents(OpenSkillMenu(this, playerDataRepository), this)
         server.pluginManager.registerEvents(LevelCommands(this, playerDataRepository), this)
+        server.pluginManager.registerEvents(OpenGeneralMenu(this, playerDataRepository), this)
+
     }
 
     override fun onDisable() {

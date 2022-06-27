@@ -1,4 +1,4 @@
-package com.smellyalater.corefunctionality.gui
+package com.smellyalater.corefunctionality.gui.chestgui
 
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack

@@ -1,4 +1,4 @@
-package com.smellyalater.corefunctionality.gui
+package com.smellyalater.corefunctionality.gui.chestgui
 
 
 fun wrap(text: String, max: Int = 32) = text.split("\n").flatMap {

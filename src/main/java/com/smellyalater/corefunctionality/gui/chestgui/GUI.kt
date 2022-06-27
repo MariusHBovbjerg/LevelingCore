@@ -1,4 +1,4 @@
-package com.smellyalater.corefunctionality.gui
+package com.smellyalater.corefunctionality.gui.chestgui
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -77,7 +77,7 @@ class GUI(
 
     fun slot(
         i: Int,
-        builder: GUI.Slot.() -> Unit
+        builder: Slot.() -> Unit
     ) {
         val slot = Slot().apply(builder)
         inventory.setItem(i, slot.item?.stack)
@@ -86,17 +86,17 @@ class GUI(
 
     fun slot(
         x: Int, y: Int,
-        builder: GUI.Slot.() -> Unit
+        builder: Slot.() -> Unit
     ) = slot(toSlot(x, y), builder)
 
     fun slot(
         coords: Coords,
-        builder: GUI.Slot.() -> Unit
+        builder: Slot.() -> Unit
     ) = slot(coords.x, coords.y, builder)
 
     fun fill(
         x1: Int, y1: Int, x2: Int, y2: Int,
-        builder: GUI.Slot.() -> Unit
+        builder: Slot.() -> Unit
     ) {
         val dx = if (x1 < x2) x1..x2 else x2..x1
         val dy = if (y1 < y2) y1..y2 else y2..y1
@@ -106,10 +106,10 @@ class GUI(
     fun fill(
         coords1: Coords,
         coords2: Coords,
-        builder: GUI.Slot.() -> Unit
+        builder: Slot.() -> Unit
     ) = fill(coords1.x, coords1.y, coords2.x, coords2.y, builder)
 
-    fun all(builder: GUI.Slot.() -> Unit) = fill(0, 0, 8, rows - 1, builder)
+    fun all(builder: Slot.() -> Unit) = fill(0, 0, 8, rows - 1, builder)
 
     fun Coords.up() {
         y = Math.floorMod((y - 1), rows)
