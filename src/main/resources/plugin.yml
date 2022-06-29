@@ -6,14 +6,12 @@ authors: [ Smellyalater ]
 description: Core functionality for the server 8)
 dependencies:
   - NBTAPI
+  - WorldGuard
 
 commands:
   levelinfo:
     permission: corefunctionality.levelinfo
     description: levelinfo
-  skills:
-    permission: corefunctionality.skills
-    description: skills
   giveSkillPoints:
     permission: corefunctionality.giveSkillPoints
     description: giveSkillPoints

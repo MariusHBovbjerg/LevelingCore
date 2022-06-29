@@ -1,25 +1,15 @@
 package com.smellyalater.corefunctionality.gui.tradegui.classes
 
-import masecla.villager.api.MainLoader
+import com.smellyalater.corefunctionality.gui.tradegui.adapter.MerchantAdapter_v1_18_2_R0
 import org.bukkit.entity.Player
 import java.lang.reflect.InvocationTargetException
 
 
-class VillagerInventory {
-    var trades: List<VillagerTrade> = ArrayList()
-    var name = "Sample text"
-    var forWho: Player? = null
-
-    constructor(trades: List<VillagerTrade>, forWho: Player?) : super() {
-        this.trades = trades
-        this.forWho = forWho
-    }
-
-    constructor() {}
+class VillagerInventory (var trades: ArrayList<VillagerTrade> = ArrayList(), var forWho: Player? = null, var name: String = "Sample Text") {
 
     fun open() {
         try {
-            MainLoader.getAdapter().getConstructor(VillagerInventory::class.java).newInstance(this).openFor(forWho)
+            MerchantAdapter_v1_18_2_R0(this).openFor(forWho)
         } catch (e: InstantiationException) {
             e.printStackTrace()
         } catch (e: IllegalAccessException) {

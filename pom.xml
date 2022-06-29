@@ -129,6 +129,10 @@
 
     <repositories>
         <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -150,16 +154,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc1.18.2</groupId>
-            <artifactId>craftbukkit1.18.2</artifactId>
-            <version>1.18.2</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/spigot-1.18.2.jar</systemPath>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.18.2-R0.1-SNAPSHOT</version>
+            <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -171,6 +175,12 @@
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api-plugin</artifactId>
             <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>7.1.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.exposed</groupId>

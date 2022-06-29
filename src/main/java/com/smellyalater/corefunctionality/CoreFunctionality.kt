@@ -32,7 +32,6 @@ class CoreFunctionality : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(GetLevelingInformation(this, playerDataRepository), this)
         server.pluginManager.registerEvents(LevelCommands(this, playerDataRepository), this)
         server.pluginManager.registerEvents(OpenGeneralMenu(this, playerDataRepository), this)
-
     }
 
     override fun onDisable() {

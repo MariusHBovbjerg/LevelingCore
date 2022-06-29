@@ -6,7 +6,7 @@ import com.smellyalater.corefunctionality.gui.tradegui.events.VillagerInventoryC
 import com.smellyalater.corefunctionality.gui.tradegui.events.VillagerInventoryModifyEvent
 import com.smellyalater.corefunctionality.gui.tradegui.events.VillagerInventoryOpenEvent
 import com.smellyalater.corefunctionality.gui.tradegui.events.VillagerTradeCompleteEvent
-import org.bukkit.craftbukkit.v1_18_2.inventory.CraftMerchantCustom
+import org.bukkit.craftbukkit.v1_18_R2.inventory.CraftMerchantCustom
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -18,7 +18,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.inventory.MerchantRecipe
 
 
-class MerchantAdapter_v1_18_2_R0(toAdapt: VillagerInventory) : BaseAdapter(toAdapt), Listener {
+class MerchantAdapter_v1_18_2_R0(var toAdapt: VillagerInventory) : Listener {
     private var wrapped: CraftMerchantCustom? = null
 
     init {
@@ -32,10 +32,12 @@ class MerchantAdapter_v1_18_2_R0(toAdapt: VillagerInventory) : BaseAdapter(toAda
         wrapped?.recipes = toNMSRecipes()
     }
 
-    override fun openFor(p: Player?) {
-        p!!.openMerchant(wrapped, true)
-        val event = VillagerInventoryOpenEvent(toAdapt, p)
-        Bukkit.getPluginManager().callEvent(event)
+    fun openFor(p: Player?) {
+        wrapped?.let { p!!.openMerchant(it, true) }
+        val event = p?.let { VillagerInventoryOpenEvent(toAdapt, it) }
+        if (event != null) {
+            Bukkit.getPluginManager().callEvent(event)
+        }
     }
 
     @EventHandler
@@ -72,7 +74,7 @@ class MerchantAdapter_v1_18_2_R0(toAdapt: VillagerInventory) : BaseAdapter(toAda
         }
     }
 
-    fun toNMSRecipes(): List<MerchantRecipe> {
+    private fun toNMSRecipes(): List<MerchantRecipe> {
         val result: MutableList<MerchantRecipe> = ArrayList()
         for (trd in toAdapt.trades) {
             val toAdd = MerchantRecipe(trd.result, trd.maxUses)
